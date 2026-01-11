@@ -4,10 +4,7 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def encrypt_char(ch, shift1, shift2):
-    """
-    Encrypt a single character using a reversible cipher.
-    Lowercase letters and uppercase letters use different shifts.
-    """
+
     if 'a' <= ch <= 'z':
         pos = ord(ch) - ord('a')
         shift = shift1 * shift2
@@ -19,28 +16,22 @@ def encrypt_char(ch, shift1, shift2):
         return chr((pos + shift) % 26 + ord('A'))
 
     return ch
-def decrypt_char(ch, shift1, shift2):
 
+def decrypt_char(ch, shift1, shift2):
+    """
+    Decrypt a single character (exact inverse of encrypt_char).
+    """
     if 'a' <= ch <= 'z':
         pos = ord(ch) - ord('a')
-        if pos <= 12:
-            shift = shift1 * shift2
-            new_pos = (pos - shift) % 26
-        else:
-            shift = shift1 + shift2
-            new_pos = (pos + shift) % 26
-        return chr(new_pos + ord('a'))
+        shift = shift1 * shift2
+        return chr((pos - shift) % 26 + ord('a'))
 
     elif 'A' <= ch <= 'Z':
         pos = ord(ch) - ord('A')
-        if pos <= 12:
-            new_pos = (pos + shift1) % 26
-        else:
-            new_pos = (pos - (shift2 ** 2)) % 26
-        return chr(new_pos + ord('A'))
+        shift = shift1 + shift2
+        return chr((pos - shift) % 26 + ord('A'))
 
-    else:
-        return ch
+    return ch
 
 
 def encrypt_file(shift1, shift2):
@@ -63,3 +54,20 @@ def decrypt_file(shift1, shift2):
             for ch in line:
                 decrypted_line += decrypt_char(ch, shift1, shift2)
             outfile.write(decrypted_line)
+
+def verify_decryption():
+    raw_file = os.path.join(base_dir, "raw_text.txt")
+    dec_file = os.path.join(base_dir, "decrypted_text.txt")
+
+    with open(raw_file, "r") as f1, open(dec_file, "r") as f2:
+        if f1.read() == f2.read():
+            print("Decryption successful: Files match.")
+        else:
+            print("Decryption failed: Files do not match.")
+
+shift1 = int(input("Enter shift1: "))
+shift2 = int(input("Enter shift2: "))
+
+encrypt_file(shift1, shift2)
+decrypt_file(shift1, shift2)
+verify_decryption()
