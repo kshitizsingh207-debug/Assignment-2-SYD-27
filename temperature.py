@@ -96,3 +96,15 @@ with open(avg_file, "w") as f:
         else:
             f.write(f"{season}:No data\n")
             print(f"{season}:No data")
+
+# Save largest temperature range
+print("\nStation with the largest temperature range:")
+with open(range_file, "w") as f:
+    for station in range_stations:
+        temps = station_temps[station]
+        line = (
+        f"Station {station}: Range {max(temps)-min(temps):.2f}°C "
+        f"(Max: {max(temps):.2f}°C, Min: {min(temps):.2f}°C)"
+            )
+        print(line)
+        f.write(line + "\n")
