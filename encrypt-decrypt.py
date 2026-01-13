@@ -17,10 +17,6 @@ def encrypt_char(ch, shift1, shift2):
 
     return ch
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 96ef047 (Added verified decryption)
 def decrypt_char(ch, shift1, shift2):
     """
     Decrypt a single character (exact inverse of encrypt_char).
@@ -67,15 +63,7 @@ def decrypt_file(shift1, shift2):
                 decrypted_line += decrypt_char(ch, shift1, shift2)
             outfile.write(decrypted_line)
 
-<<<<<<< HEAD
 def verify_decryption():
-=======
-
-def verify_decryption():
-    """
-    Verify that decrypted_text.txt matches raw_text.txt
-    """
->>>>>>> 96ef047 (Added verified decryption)
     raw_file = os.path.join(base_dir, "raw_text.txt")
     dec_file = os.path.join(base_dir, "decrypted_text.txt")
 
@@ -90,8 +78,4 @@ shift2 = int(input("Enter shift2: "))
 
 encrypt_file(shift1, shift2)
 decrypt_file(shift1, shift2)
-<<<<<<< HEAD
 verify_decryption()
-=======
-verify_decryption()
->>>>>>> 96ef047 (Added verified decryption)
