@@ -4,7 +4,7 @@ import pandas as pd
 
 import numpy as np
 
-base_dir = os.path.dirname(os.path.abspath(__file__git add))
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 data_folder = os.path.join(base_dir, "temperatures")
 output_folder = os.path.join(base_dir, "output")
