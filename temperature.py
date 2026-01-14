@@ -1,21 +1,14 @@
-
-# Import os module to work with folders and file paths
 import os
 
-# Import pandas for reading and handling CSV files easily
 import pandas as pd
 
-# Import numpy for numerical calculations like mean and standard deviation
 import numpy as np
 
-# Get the directory where this script is located
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Input and output folders relative to the script
 data_folder = os.path.join(base_dir, "temperatures")
 output_folder = os.path.join(base_dir, "output")
 
-# Create output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)
 
 total_records = 0
@@ -27,6 +20,10 @@ seasonal_temps = {
     "Spring": []
 }
 station_temps = {}
+most_stable_std=float("inf")
+most_variable_std = -1
+most_stable_stations = []
+most_variable_stations = []
 
 def get_season(month_name):
     if month_name in ["December","January","February"]:
@@ -43,14 +40,11 @@ for file in os.listdir(data_folder):
         file_path = os.path.join(data_folder,file)
         df=pd.read_csv(file_path)
        
-        # List of month columns
         months = ["January", "February", "March","April","May","June",
                   "July","August","September","October","November","December" ]
         
-        # Remove rows where Temperature is NaN
         df = df.dropna(subset=months,how="all")
 
-        # Loop through each month column
         for month in months:
             month_values = df[month].dropna().tolist()
             total_records += len(month_values)
@@ -82,7 +76,6 @@ for station, temps in station_temps.items():
 
 range_file = os.path.join(output_folder, "largest_temp_range_station.txt")
 
-
 # Calculate average for each season
 print("\nAverage temperature for each season across ALL stations and ALL years:")
 avg_file = os.path.join(output_folder, "average_temp.txt")
@@ -108,3 +101,7 @@ with open(range_file, "w") as f:
             )
         print(line)
         f.write(line + "\n")
+
+
+
+
