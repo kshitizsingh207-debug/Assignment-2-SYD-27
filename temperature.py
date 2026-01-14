@@ -101,37 +101,3 @@ with open(range_file, "w") as f:
             )
         print(line)
         f.write(line + "\n")
-
-most_variable_stations = []
-for station, temps in station_temps.items():
-    std_dev = np.std(temps)  # standard deviation of this station
-
-    # Most stable station
-    if std_dev < most_stable_std:
-        most_stable_std = std_dev
-        most_stable_stations = [station]
-    elif std_dev == most_stable_std:
-        most_stable_stations.append(station)
-
-    # Most variable station
-    if std_dev > most_variable_std:
-        most_variable_std = std_dev
-        most_variable_stations = [station]
-    elif std_dev == most_variable_std:
-        most_variable_stations.append(station)
-
-print("\nTemperature Stability:")
-for station in most_stable_stations:
-    print(f"Most Stable:Station {station}: StdDev {most_stable_std:.2f}°C")
- 
-for station in  most_variable_stations:
-    print(f"Most Variable: Station {station}: StdDev {most_variable_std:.2f}°C")
-
-
-# Save temperature stability
-stability_file = os.path.join(output_folder, "temp_stability_stations.txt")
-with open(stability_file, "w") as f:
-    for station in most_stable_stations:
-        f.write(f"Most Stable: Station {station}: StdDev {most_stable_std:.2f}°C\n")
-    for station in most_variable_stations:
-        f.write(f"Most Variable: Station {station}: StdDev {most_variable_std:.2f}°C\n")
