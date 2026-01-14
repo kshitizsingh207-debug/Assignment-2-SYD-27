@@ -18,9 +18,7 @@ def encrypt_char(ch, shift1, shift2):
     return ch
 
 def decrypt_char(ch, shift1, shift2):
-    """
-    Decrypt a single character (exact inverse of encrypt_char).
-    """
+    
     if 'a' <= ch <= 'z':
         pos = ord(ch) - ord('a')
         shift = shift1 * shift2
@@ -35,9 +33,7 @@ def decrypt_char(ch, shift1, shift2):
 
 
 def encrypt_file(shift1, shift2):
-    """
-    Encrypt the contents of raw_text.txt and save to encrypted_text.txt
-    """
+
     raw_file = os.path.join(base_dir, "raw_text.txt")
     enc_file = os.path.join(base_dir, "encrypted_text.txt")
 
@@ -50,9 +46,7 @@ def encrypt_file(shift1, shift2):
 
 
 def decrypt_file(shift1, shift2):
-    """
-    Decrypt encrypted_text.txt and save to decrypted_text.txt
-    """
+    
     enc_file = os.path.join(base_dir, "encrypted_text.txt")
     dec_file = os.path.join(base_dir, "decrypted_text.txt")
 
